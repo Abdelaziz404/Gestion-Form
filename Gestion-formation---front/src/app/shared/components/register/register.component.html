@@ -1,0 +1,40 @@
+<div class="auth-card glass-card">
+  <div class="header">
+    <h1 class="logo-text">🎓 CN I</h1>
+    <p class="subtitle">Inscription Formateur</p>
+  </div>
+
+  <form (submit)="onNextStep($event)">
+    <div class="form-group">
+      <label>Nom</label>
+      <div class="input-wrapper">
+        <input type="text" placeholder="Votre nom" [(ngModel)]="nom" name="nom" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Prénom</label>
+      <div class="input-wrapper">
+        <input type="text" placeholder="Votre prénom" [(ngModel)]="prenom" name="prenom" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <div class="input-wrapper">
+        <input type="email" placeholder="name@cni.tn" [(ngModel)]="email" name="email" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <div class="input-wrapper">
+        <input type="password" placeholder="••••••••" [(ngModel)]="password" name="password" required>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+    <button type="submit" class="btn-primary full-width">Next</button>
+  </form>
+</div>

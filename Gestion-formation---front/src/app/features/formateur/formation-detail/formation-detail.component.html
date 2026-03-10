@@ -1,0 +1,135 @@
+<div class="detail-container" *ngIf="formation">
+    <header class="page-header">
+        <div class="header-content">
+            <button class="back-link" routerLink="/dashboard">← Back to Dashboard</button>
+            <div class="title-row">
+                <span class="badge">Course Program</span>
+                <h1>{{ formation.titre }}</h1>
+            </div>
+            <p class="description">{{ formation.description }}</p>
+            <div class="quick-stats">
+                <div class="q-stat">
+                    <span class="label">Duration</span>
+                    <span class="value">{{ formation.duree }} Hours</span>
+                </div>
+                <div class="q-stat">
+                    <span class="label">Price</span>
+                    <span class="value">{{ formation.prix }} TND</span>
+                </div>
+                <div class="q-stat">
+                    <span class="label">Students</span>
+                    <span class="value">12 Enrolled</span>
+                </div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-outline" (click)="toggleAddSession()">Plan Session</button>
+            <button class="btn-primary" (click)="closeFormation()">Complete Formation</button>
+        </div>
+    </header>
+
+    <div class="detail-layout">
+        <section class="seances-section">
+            <div class="section-header">
+                <h2>Training Timeline</h2>
+                <p>Manage and track all scheduled sessions for this program.</p>
+            </div>
+
+            <div class="add-session-box glass-card" *ngIf="showAddSession">
+                <div class="box-header">
+                    <h3>Schedule New Session</h3>
+                    <p>Assign a date, time and location for the next class.</p>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Session Date</label>
+                        <div class="input-wrapper">
+                            <span class="icon">📅</span>
+                            <input type="date" [(ngModel)]="newSeance.date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Start Time</label>
+                        <div class="input-wrapper">
+                            <span class="icon">🕒</span>
+                            <input type="time" [(ngModel)]="newSeance.heureDebut">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Location / Room</label>
+                        <div class="input-wrapper">
+                            <span class="icon">📍</span>
+                            <input type="text" [(ngModel)]="newSeance.salle" placeholder="e.g. Room 102 or Zoom Link">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn-cancel" (click)="toggleAddSession()">Discard</button>
+                    <button class="btn-primary" (click)="addSeance()">Confirm Schedule</button>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item glass-card" *ngFor="let s of seances; let i = index">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-dot" [class.latest]="i === 0"></div>
+                    <div class="seance-content">
+                        <div class="seance-main">
+                            <div class="seance-icon">
+                                <img src="assets/images/icon-session.png" alt="Session">
+                            </div>
+                            <div class="seance-details">
+                                <p class="date">{{ s.date | date:'fullDate' }}</p>
+                                <p class="meta">
+                                    <span class="time">Starts at {{ s.heureDebut }}</span>
+                                    <span class="separator">•</span>
+                                    <span class="location">{{ s.salle }}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <button class="btn-outline btn-small" [routerLink]="['/attendance', s.seanceId]">
+                            Manage Attendance
+                        </button>
+                    </div>
+                </div>
+
+                <div class="empty-state" *ngIf="seances.length === 0">
+                    <p>No sessions scheduled yet. Click "Plan Session" to start.</p>
+                </div>
+            </div>
+        </section>
+
+        <aside class="program-info">
+            <div class="info-card glass-card">
+                <div class="card-hero">
+                    <img src="assets/images/icon-curriculum.png" alt="Identifier" class="hero-icon">
+                    <div class="hero-overlay"></div>
+                </div>
+                <h3>Program Overview</h3>
+                <div class="info-item">
+                    <div class="item-icon">📋</div>
+                    <div>
+                        <p class="label">Syllabus Status</p>
+                        <p class="status">Verified & Locked</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <img src="assets/images/icon-analytics.png" alt="Performance">
+                    <div>
+                        <p class="label">Average Participation</p>
+                        <p class="status highlight">92% Engagement</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card glass-card dark">
+                <h3>Export & Share</h3>
+                <p>Generate reports for administration or share the schedule with students.</p>
+                <div class="side-actions">
+                    <button class="btn-secondary" (click)="mockDownload()">Download Schedule</button>
+                    <button class="btn-secondary" (click)="mockDownload()">Session Reports</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>

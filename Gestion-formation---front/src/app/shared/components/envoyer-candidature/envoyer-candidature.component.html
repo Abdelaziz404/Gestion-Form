@@ -1,0 +1,50 @@
+<div class="auth-page">
+  <div class="auth-layout">
+
+    <!-- Step 1: Personal Info -->
+    <div *ngIf="currentStep === 1" class="form-panel">
+      <app-register (nextStep)="onPersonalInfo($event)"></app-register>
+    </div>
+
+    <!-- Step 2: Professional Info + File Upload -->
+    <div *ngIf="currentStep === 2" class="form-panel">
+      <div class="auth-card glass-card">
+        <div class="header">
+          <h1 class="logo-text">🎓 CN I</h1>
+          <p class="subtitle">Détails Professionnels</p>
+        </div>
+
+        <form (submit)="onSubmit($event)">
+          <div class="form-group">
+            <label>Années d'expérience</label>
+            <div class="input-wrapper">
+              <input type="number" placeholder="Ex: 5" [(ngModel)]="anneesExperience" name="anneesExperience" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Spécialités</label>
+            <div class="input-wrapper">
+              <input type="text" placeholder="Ex: Java, Python" [(ngModel)]="specialites" name="specialites" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Ajouter des fichiers (PDF)</label>
+            <div class="input-wrapper">
+              <input type="file" (change)="onFileSelected($event)" multiple accept=".pdf">
+            </div>
+            <div *ngIf="selectedFiles.length > 0" class="file-list">
+              <p *ngFor="let file of selectedFiles">{{ file.name }}</p>
+            </div>
+          </div>
+
+          <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+          <button type="submit" class="btn-primary full-width">Envoyer Candidature</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

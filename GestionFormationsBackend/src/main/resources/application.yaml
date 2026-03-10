@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: GestionFormationsBackend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/FormationsDB
+    username: postgres
+    password: AA11..
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+cloudinary:
+  cloud-name: Root
+  api-key: 148692661576157
+  api-secret: GSLzhhZsBJitJSns_K8ZqiyKW-Q
+
+jwt:
+  secret: mysupersecretkeymysupersecretkeymysupersecretkeymysupersecretkey
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+debug: true

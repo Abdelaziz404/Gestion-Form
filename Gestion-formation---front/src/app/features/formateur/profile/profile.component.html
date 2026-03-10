@@ -1,0 +1,156 @@
+<div class="profile-container">
+    <header class="page-header">
+        <div class="header-text">
+            <span class="badge">Account Settings</span>
+            <h1>Trainer Profile</h1>
+            <p>Your professional profile and platform preferences.</p>
+        </div>
+    </header>
+
+    <div class="profile-layout">
+        <div class="main-profile">
+            <div class="profile-header glass-card">
+                <div class="cover-image decorative-gradient">
+                    <div class="ambient-glow"></div>
+                </div>
+                <div class="header-body">
+                    <div class="avatar-wrapper">
+                        <div class="avatar">{{ user.prenom[0] }}{{ user.nom[0] }}</div>
+                        <button class="btn-avatar-edit">✏️</button>
+                    </div>
+                    <div class="user-meta">
+                        <h2>{{ user.prenom }} {{ user.nom }}</h2>
+                        <span class="role">Certified Senior Instructor</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-card glass-card">
+                <div class="tabs">
+                    <button class="tab" [class.active]="activeTab === 'personal'" (click)="setTab('personal')">Personal
+                        Information</button>
+                    <button class="tab" [class.active]="activeTab === 'security'"
+                        (click)="setTab('security')">Security</button>
+                    <button class="tab" [class.active]="activeTab === 'notifications'"
+                        (click)="setTab('notifications')">Notifications</button>
+                </div>
+
+                <div class="settings-body">
+                    <!-- Personal Info Panel -->
+                    <div class="panel" *ngIf="activeTab === 'personal'">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" [(ngModel)]="user.prenom" [disabled]="!isEditing">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" [(ngModel)]="user.nom" [disabled]="!isEditing">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <div class="input-wrapper">
+                                    <span class="icon">📧</span>
+                                    <input type="email" [(ngModel)]="user.email" [disabled]="!isEditing">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <div class="input-wrapper">
+                                    <span class="icon">📞</span>
+                                    <input type="text" [(ngModel)]="user.telephone" [disabled]="!isEditing">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button class="btn-primary" *ngIf="!isEditing" (click)="toggleEdit()">Modify
+                                Profile</button>
+                            <div class="edit-actions" *ngIf="isEditing">
+                                <button class="btn-outline" (click)="toggleEdit()">Cancel</button>
+                                <button class="btn-primary" (click)="saveProfile()">Update Information</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Panel -->
+                    <div class="panel" *ngIf="activeTab === 'security'">
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label>Current Password</label>
+                                <input type="password" placeholder="••••••••">
+                            </div>
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" placeholder="Min. 8 characters">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm New Password</label>
+                                <input type="password" placeholder="Re-type password">
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-primary" (click)="saveProfile()">Update Password</button>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Panel -->
+                    <div class="panel" *ngIf="activeTab === 'notifications'">
+                        <div class="notification-options">
+                            <div class="option-item">
+                                <div class="opt-text">
+                                    <h4>Email Alerts</h4>
+                                    <p>Get notified about new training assignments.</p>
+                                </div>
+                                <input type="checkbox" checked>
+                            </div>
+                            <div class="option-item">
+                                <div class="opt-text">
+                                    <h4>Session Reminders</h4>
+                                    <p>Daily breakdown of your upcoming sessions.</p>
+                                </div>
+                                <input type="checkbox" checked>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-primary" (click)="saveProfile()">Save Preferences</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <aside class="side-widgets">
+            <div class="stat-card glass-card">
+                <h3>Account Status</h3>
+                <div class="stat-item">
+                    <div class="dot active"></div>
+                    <div class="info">
+                        <p class="label">Status</p>
+                        <p class="value">Active Professional</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="dot gray"></div>
+                    <div class="info">
+                        <p class="label">Member Since</p>
+                        <p class="value">January 2024</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="dot blue"></div>
+                    <div class="info">
+                        <p class="label">Total Courses</p>
+                        <p class="value">12 Delivered</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-card glass-card dark">
+                <h3>Need Help?</h3>
+                <p>Access our knowledge base or contact instructor support.</p>
+                <button class="btn-outline small">Support Center</button>
+            </div>
+        </aside>
+    </div>
+</div>

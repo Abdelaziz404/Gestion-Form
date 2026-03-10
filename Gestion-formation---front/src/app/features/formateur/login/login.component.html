@@ -1,0 +1,78 @@
+<div class="auth-page">
+    <div class="auth-layout">
+        <div class="info-panel">
+            <div class="info-content">
+                <span class="badge">Enterprise Solution</span>
+                <h1>Welcome Back to <span class="gradient-text">GestionForm</span></h1>
+                <p>Access your dashboard to manage upcoming sessions, track student progress, and analyze training
+                    metrics in real-time.</p>
+
+                <div class="benefit-list">
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <p>Secure Enterprise Access</p>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <p>Real-time Session Updates</p>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <p>Automated Notifications</p>
+                    </div>
+                </div>
+
+                <div class="mini-mockup">
+                    <img src="assets/images/hero.png" alt="Platform Overview">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-panel">
+            <div class="auth-card glass-card">
+                <div class="header">
+                    <h1 class="logo-text">🎓 CN I</h1>
+                    <p class="subtitle">Platform Login</p>
+              <form (submit)="onLogin($event)">
+  <div class="form-group">
+    <label>Professional Email</label>
+    <div class="input-wrapper">
+      <span class="input-icon">✉</span>
+      <input type="email" placeholder="name@cni.tn" required [(ngModel)]="email" name="email">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Secure Password</label>
+    <div class="input-wrapper">
+      <span class="input-icon">🔒</span>
+      <input type="password" placeholder="••••••••" required [(ngModel)]="password" name="password">
+    </div>
+  </div>
+
+  <div class="form-actions-row">
+    <label class="checkbox-label">
+      <input type="checkbox"> Remember me
+    </label>
+    <a class="forgot-link">Forgot password?</a>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="loginError" class="error-message">
+    {{ loginError }}
+  </div>
+
+  <button type="submit" class="btn-primary login-btn">Sign In to Dashboard</button>
+
+  <div class="divider">
+    <span>OR</span>
+  </div>
+
+  <div class="footer">
+    <p>New to the platform? <a routerLink="/register">Create Professional Account</a></p>
+  </div>
+</form>
+            </div>
+        </div>
+    </div>
+</div>

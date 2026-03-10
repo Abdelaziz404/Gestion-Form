@@ -1,0 +1,93 @@
+<div class="attendance-container">
+    <header class="page-header">
+        <button class="back-link" (click)="goBack()">← Back to Program</button>
+        <div class="header-main">
+            <div class="header-text">
+                <span class="badge">Session Management</span>
+                <h1>Attendance Tracking</h1>
+                <p>Verify and mark presence for all participants in this live session.</p>
+            </div>
+            <div class="session-brief glass-card">
+                <div class="brief-item">
+                    <span class="icon">📅</span>
+                    <span>Mar 12, 2024</span>
+                </div>
+                <div class="brief-item">
+                    <span class="icon">📍</span>
+                    <span>Room 102</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="attendance-content">
+        <div class="table-card glass-card">
+            <div class="table-header">
+                <h2>Participant List</h2>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search participant...">
+                </div>
+            </div>
+
+            <table class="attendance-table">
+                <thead>
+                    <tr>
+                        <th>Participant</th>
+                        <th>Current Status</th>
+                        <th>Attendance Rate</th>
+                        <th>Observations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of participants">
+                        <td>
+                            <div class="participant-cell">
+                                <div class="avatar">{{ p.prenom[0] }}{{ p.nom[0] }}</div>
+                                <div class="info">
+                                    <span class="name">{{ p.prenom }} {{ p.nom }}</span>
+                                    <span class="email">{{ p.email }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-cell">
+                                <button class="status-pill" [class.present]="presences[p.personId].estPresent"
+                                    (click)="togglePresence(p.personId)">
+                                    <span class="dot"></span>
+                                    {{ presences[p.personId].estPresent ? 'Present' : 'Absent' }}
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="rate-cell">
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress" [style.width.%]="getAttendanceRate(p.personId)"
+                                            [class.low]="getAttendanceRate(p.personId) < 70"></div>
+                                    </div>
+                                    <span class="percentage" [class.error]="getAttendanceRate(p.personId) < 70">
+                                        {{ getAttendanceRate(p.personId) }}%
+                                    </span>
+                                </div>
+                                <span class="eligibility" *ngIf="getAttendanceRate(p.personId) >= 70">Eligible</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="observation-cell">
+                                <input type="text" [(ngModel)]="presences[p.personId].observation"
+                                    placeholder="Add private note...">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="table-footer">
+                <p class="summary">Showing {{ participants.length }} participants registered in this session.</p>
+                <div class="actions">
+                    <button class="btn-primary" (click)="saveAttendance()">Save & Finalize Attendance</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

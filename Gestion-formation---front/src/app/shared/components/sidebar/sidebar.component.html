@@ -1,0 +1,10 @@
+<ng-container *ngIf="role$ | async as role">
+
+
+  <app-formateur-sidebar
+    *ngIf="role === RoleEnum.FORMATEUR && user"
+    [user]="user!">
+  </app-formateur-sidebar>
+
+
+</ng-container>

@@ -1,0 +1,83 @@
+<div class="dashboard-container">
+    <header class="page-header">
+        <div class="header-main">
+            <div class="header-text">
+                <span class="badge">Trainer Dashboard</span>
+                <h1 class="welcome-text">Welcome back, <span class="gradient-text">{{ user.prenom }}</span></h1>
+                <p>You have <span class="highlight">{{ formations.length }}</span> active programs under your
+                    supervision.</p>
+            </div>
+            <div class="dashboard-illustration">
+                <div class="decorative-grid"></div>
+                <div class="abstract-shape"></div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-outline" (click)="mockDownload()">Download Reports</button>
+            <button class="btn-primary" routerLink="/formation/create">+ New Formation</button>
+        </div>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-card glass-card">
+            <div class="stat-icon">📚</div>
+            <div class="stat-info">
+                <p class="label">Total Formations</p>
+                <div class="value-row">
+                    <p class="value">{{ formations.length }}</p>
+                    <span class="trend positive">↑ 12%</span>
+                </div>
+            </div>
+        </div>
+        <div class="stat-card glass-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-info">
+                <p class="label">Total Participants</p>
+                <div class="value-row">
+                    <p class="value">128</p>
+                    <span class="trend positive">↑ 8%</span>
+                </div>
+            </div>
+        </div>
+        <div class="stat-card glass-card">
+            <div class="stat-icon blue">📅</div>
+            <div class="stat-info">
+                <p class="label">Upcoming Sessions</p>
+                <div class="value-row">
+                    <p class="value">24</p>
+                    <span class="trend">This Month</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="formation-grid">
+        <div class="formation-card glass-card" *ngFor="let f of formations">
+            <div class="card-hero">
+                <span class="status-badge" [class.active]="true">In Progress</span>
+            </div>
+            <div class="card-body">
+                <div class="card-category">Professional Training</div>
+                <h3>{{ f.titre }}</h3>
+                <p class="description">{{ f.description | slice:0:80 }}...</p>
+
+                <div class="meta-row">
+                    <div class="meta-item">
+                        <span class="icon">⏱</span>
+                        <span>{{ f.duree }}h Duration</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="icon">👥</span>
+                        <span>12 Registered</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="price">{{ f.prix }} <span class="currency">TND</span></div>
+                <button class="btn-primary btn-small" [routerLink]="['/formation', f.formationId]">Manage
+                    Program</button>
+            </div>
+        </div>
+    </div>
+</div>

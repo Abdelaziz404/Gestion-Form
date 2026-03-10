@@ -1,0 +1,107 @@
+<div class="create-container">
+    <header class="page-header">
+        <button class="btn-ghost" (click)="goBack()">← Discard</button>
+        <div class="header-text">
+            <span class="badge">Program Builder</span>
+            <h1>Curriculum Designer</h1>
+            <p>Draft your professional training program. You can schedule individual sessions later.</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn-primary large" (click)="saveFormation()">Initialize Program</button>
+        </div>
+    </header>
+
+    <div class="create-content">
+        <div class="main-form glass-card">
+            <div class="form-section">
+                <h2 class="section-title">General Information</h2>
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label>Public Title</label>
+                        <div class="input-wrapper">
+                            <span class="icon">🔖</span>
+                            <input type="text" [(ngModel)]="formation.titre"
+                                placeholder="e.g. Advanced Cybersecurity Frameworks">
+                        </div>
+                    </div>
+                    <div class="form-group full">
+                        <label>Program Overview & Objectives</label>
+                        <div class="input-wrapper">
+                            <textarea [(ngModel)]="formation.description" rows="5"
+                                placeholder="Describe the learning path, prerequisites, and key takeaways..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pricing (TND)</label>
+                        <div class="input-wrapper">
+                            <span class="icon">💰</span>
+                            <input type="number" [(ngModel)]="formation.prix">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Estimated Hours</label>
+                        <div class="input-wrapper">
+                            <span class="icon">⏱</span>
+                            <input type="number" [(ngModel)]="formation.duree">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Difficulty Tier</label>
+                        <div class="input-wrapper">
+                            <select class="custom-select">
+                                <option>Beginner</option>
+                                <option>Intermediate</option>
+                                <option>Advanced / Pro</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="form-section">
+                <h2 class="section-title">Session Strategy</h2>
+                <p class="section-desc">By creating this program, you'll be able to host multiple live sessions.
+                    Students will enroll in this curriculum as a whole.</p>
+
+                <div class="info-alert">
+                    <span class="icon">💡</span>
+                    <p>Pro Tip: You'll be redirected to the Timeline Manager right after creation to schedule your first
+                        class.</p>
+                </div>
+            </div>
+        </div>
+
+        <aside class="create-preview">
+            <div class="sticky-preview">
+                <div class="blueprint-illustration glass-card">
+                    <div class="blueprint-grid"></div>
+                    <div class="blueprint-content">
+                        <span class="blueprint-icon">📐</span>
+                        <h3>Design Space</h3>
+                        <p>Drafting your curriculum</p>
+                    </div>
+                </div>
+
+                <div class="preview-card glass-card">
+                    <h3>Card Preview</h3>
+                    <div class="mock-card">
+                        <div class="mock-image gradient-bg">
+                            <div class="logo-circle">🎓</div>
+                        </div>
+                        <div class="mock-content">
+                            <div class="mock-tag">PRO TRAINING</div>
+                            <div class="mock-title">{{ formation.titre || 'Untitled Program' }}</div>
+                            <div class="mock-meta">
+                                <span>⏱ {{ formation.duree || 0 }}h</span>
+                                <span>💰 {{ formation.prix || 0 }} TND</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="preview-desc">This is how your training will appear on the student marketplace.</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
