@@ -1,0 +1,28 @@
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backend Build
+GestionFormationsBackend/target/
+GestionFormationsBackend/.mvn/
+GestionFormationsBackend/mvnw
+GestionFormationsBackend/mvnw.cmd
+
+# Frontend Build
+Gestion-formation---front/node_modules/
+Gestion-formation---front/dist/
+Gestion-formation---front/.angular/
+
+# Docker
+.docker_data/
+postgres_data/
+
+# Other
+.qoder/
+*.log
