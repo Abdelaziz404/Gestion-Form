@@ -12,6 +12,15 @@ public final class AdminMapper {
     public static Admin toEntity(AdminRequest request, Long personId) {
         return Admin.builder()
                 .id(personId)
+                // Base fields
+                .prenom(request.getPrenom())
+                .nom(request.getNom())
+                .email(request.getEmail())
+                .telephone(request.getTelephone())
+                .motDePasse(request.getPassword())
+                .imageUrl(request.getImageUrl())
+                .role(request.getRole())
+                // Admin specific fields
                 .permissions(request.getPermissions())
                 .build();
     }

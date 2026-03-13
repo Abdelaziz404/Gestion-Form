@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { AuthRequest } from '../../models/Auth/AuthRequest';
-import { AuthResponse } from '../../models/Auth/AuthResponse';
-import { Role } from '../../../shared/utils/role';
+import { AuthRequest } from '../../dto/Auth/AuthRequest';
+import { AuthResponse } from '../../dto/Auth/AuthResponse';
+import { Role } from '../../../shared/utils/Enum/role';
 import { API_BASE_URL } from 'src/app/shared/utils/constants';
 
 @Injectable({

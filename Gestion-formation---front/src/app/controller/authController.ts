@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/services/authService/auth.service';
-import { AuthRequest } from 'src/app/core/models/Auth/AuthRequest';
-import { Role } from '../shared/utils/role';
+import { AuthRequest } from 'src/app/core/dto/Auth/AuthRequest';
+import { Role } from '../shared/utils/Enum/role';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 

@@ -7,7 +7,6 @@ import Entity.Person;
 import Enum.Role;
 import Repository.PersonRepository;
 import Security.JwtService;
-import Service.Validators.PasswordValidator;
 import Exception.EntityNotFoundException;
 import Exception.ValidationException;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +39,6 @@ class AuthenticationIntegrationTest {
         @BeforeEach
         void setUp() {
                 passwordEncoder = new BCryptPasswordEncoder();
-                PasswordValidator.setPasswordEncoder(passwordEncoder);
                 authenticationService = new AuthenticationServiceImpl(
                                 personRepository,
                                 jwtService);

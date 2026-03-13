@@ -32,8 +32,6 @@ public class ParticipantServiceImpl implements ParticipantService {
     public ParticipantResponse createParticipantWithPersonId(ParticipantRequest request, Long personId) {
         if (request == null)
             throw new ValidationException("ParticipantRequest cannot be null");
-        if (personId == null)
-            throw new ValidationException("Person ID cannot be null");
 
         Participant participant = ParticipantMapper.toEntity(request, personId);
         participantRepository.save(participant);

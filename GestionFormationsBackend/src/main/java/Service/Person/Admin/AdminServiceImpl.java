@@ -28,8 +28,6 @@ public class AdminServiceImpl implements AdminService {
         public AdminResponse createAdminWithPersonId(AdminRequest request, Long personId) {
                 if (request == null)
                         throw new ValidationException("AdminRequest cannot be null");
-                if (personId == null)
-                        throw new ValidationException("Person ID cannot be null");
 
                 Admin admin = AdminMapper.toEntity(request, personId);
                 adminRepository.save(admin);
@@ -94,26 +92,5 @@ public class AdminServiceImpl implements AdminService {
                 }
 
                 adminRepository.deleteById(id);
-        }
-
-        // ---------------- BASE CRUD ----------------
-        @Override
-        public Admin save(Admin entity) {
-                return adminRepository.save(entity);
-        }
-
-        @Override
-        public java.util.Optional<Admin> findById(Long id) {
-                return adminRepository.findById(id);
-        }
-
-        @Override
-        public List<Admin> findAll() {
-                return adminRepository.findAll();
-        }
-
-        @Override
-        public boolean existsById(Long id) {
-                return adminRepository.existsById(id);
         }
 }

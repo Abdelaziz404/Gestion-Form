@@ -34,27 +34,14 @@ export class FormationDetailComponent implements OnInit {
   }
 
   loadData(id: number) {
-    this.formationService.getFormationDetails(id).subscribe(data => this.formation = data);
-    this.formationService.getSeancesByFormation(id).subscribe(data => this.seances = data);
+
   }
 
   toggleAddSession() {
     this.showAddSession = !this.showAddSession;
   }
 
-  addSeance() {
-    if (this.newSeance.date && this.newSeance.heureDebut) {
-      const seanceToCreate = { ...this.newSeance, seanceId: Math.random() };
-      this.formationService.createSeance(seanceToCreate).subscribe(() => {
-        this.loadData(this.newSeance.formationId);
-        this.showAddSession = false;
-        this.newSeance.date = '';
-        this.newSeance.heureDebut = '';
-        this.newSeance.salle = '';
-        alert('Session added successfully!');
-      });
-    }
-  }
+
 
   mockDownload() {
     alert('Generating report... Your download will start shortly.');

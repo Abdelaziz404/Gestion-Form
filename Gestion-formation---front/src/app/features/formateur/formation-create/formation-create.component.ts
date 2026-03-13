@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormationService } from '../../../infrastructure/services/formation.service';
 import { Formation } from '../../../core/models/formation.model';
-import { Seance } from '../../../core/models/seance.model';
-import { MOCK_FORMATEUR } from '../../../infrastructure/mock/mock-data';
 
 @Component({
   selector: 'app-formation-create',
@@ -17,7 +15,6 @@ export class FormationCreateComponent implements OnInit {
     description: '',
     prix: 0,
     duree: 0,
-    formateur: MOCK_FORMATEUR
   };
 
   constructor(
@@ -30,16 +27,6 @@ export class FormationCreateComponent implements OnInit {
 
   saveFormation() {
     if (this.formation.titre) {
-      this.formationService.createFormation(this.formation).subscribe(() => {
-        alert('Formation created successfully! You can now add sessions in the detail view.');
-        this.router.navigate(['/formation', this.formation.formationId]);
-      });
-    } else {
-      alert('Please provide a title for the formation.');
-    }
-  }
-
-  goBack() {
-    this.router.navigate(['/dashboard']);
-  }
+   
+  }}
 }

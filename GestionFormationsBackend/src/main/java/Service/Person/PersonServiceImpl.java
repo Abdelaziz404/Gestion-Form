@@ -55,18 +55,23 @@ public class PersonServiceImpl implements PersonService {
 
         String encodedPassword = passwordUtil.encodePassword(request.getPassword());
 
-        Person person = PersonMapper.toEntity(request, encodedPassword);
-
         // Si aucune image fournie, utiliser valeur par défaut
-        if (person.getImageUrl() == null || person.getImageUrl().isBlank()) {
-            person.setImageUrl(DEFAULT_IMAGE);
+        if (request.getImageUrl() == null || request.getImageUrl().isBlank()) {
+            request.setImageUrl(DEFAULT_IMAGE);
         }
 
-        personRepository.save(person);
+        request.setPassword(encodedPassword);
 
-        handleRoleCreation(person, request);
-
-        return PersonMapper.toResponse(person);
+        return switch (request.getRole()) {
+            case ADMIN -> adminService.createAdminWithPersonId((AdminRequest) request, null);
+            case FORMATEUR -> formateurService.createFormateurWithPersonId((FormateurRequest) request, null);
+            case PARTICIPANT -> participantService.createParticipantWithPersonId((ParticipantRequest) request, null);
+            default -> {
+                Person person = PersonMapper.toEntity(request, encodedPassword);
+                personRepository.save(person);
+                yield PersonMapper.toResponse(person);
+            }
+        };
     }
 
     // ================= UPDATE =================
@@ -133,15 +138,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     // ================= ROLE HANDLERS =================
-    private void handleRoleCreation(Person person, PersonRequest request) {
-        switch (person.getRole()) {
-            case ADMIN -> adminService.createAdminWithPersonId((AdminRequest) request, person.getId());
-            case FORMATEUR ->
-                    formateurService.createFormateurWithPersonId((FormateurRequest) request, person.getId());
-            case PARTICIPANT ->
-                    participantService.createParticipantWithPersonId((ParticipantRequest) request, person.getId());
-        }
-    }
+
 
     private void handleRoleUpdate(Person person, PersonRequest request) {
         switch (person.getRole()) {

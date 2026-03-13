@@ -8,7 +8,7 @@ import { FormationCreateComponent } from './features/formateur/formation-create/
 import { FormationDetailComponent } from './features/formateur/formation-detail/formation-detail.component';
 import { AttendanceComponent } from './features/formateur/attendance/attendance.component';
 import { ProfileComponent } from './features/formateur/profile/profile.component';
-import { EnvoyerCandidatureComponent } from './shared/components/envoyer-candidature/envoyer-candidature.component';
+import { EnvoyerCandidatureComponent } from './features/formateur/envoyer-candidature/envoyer-candidature.component';
 import { RegisterComponent } from './shared/components/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
 

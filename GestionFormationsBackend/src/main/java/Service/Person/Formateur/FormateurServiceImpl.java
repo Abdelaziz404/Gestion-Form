@@ -8,6 +8,7 @@ import Exception.EntityNotFoundException;
 import Exception.ValidationException;
 import Mapper.FormateurMapper;
 import Repository.FormateurRepository;
+import Service.Configuration.ConfigurationService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,12 @@ import java.util.Set;
 public class FormateurServiceImpl implements FormateurService {
 
     private final FormateurRepository formateurRepository;
+    private final ConfigurationService configurationService;
 
-    public FormateurServiceImpl(FormateurRepository formateurRepository) {
+    public FormateurServiceImpl(FormateurRepository formateurRepository,
+                                ConfigurationService configurationService) {
         this.formateurRepository = formateurRepository;
+        this.configurationService = configurationService;
     }
 
     // ---------------- CREATE ----------------
@@ -30,8 +34,14 @@ public class FormateurServiceImpl implements FormateurService {
 
         if (request == null)
             throw new ValidationException("FormateurRequest cannot be null");
-        if (personId == null)
-            throw new ValidationException("Person ID cannot be null");
+
+        // --- GET DEFAULT SALARY FROM CONFIGURATION ---
+        if (request.getSalaire() == null) {
+            Double defaultSalary = configurationService.getValue("default_salary")
+                    .map(Double::parseDouble)
+                    .orElse(3000.0); // fallback default
+            request.setSalaire(defaultSalary);
+        }
 
         // Mapper crée l'entité Formateur + liste de Documents si documentUrls présentes
         Formateur formateur = FormateurMapper.toEntity(request, personId);

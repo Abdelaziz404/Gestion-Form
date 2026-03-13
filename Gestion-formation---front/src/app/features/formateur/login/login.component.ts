@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthController } from '../../../controller/authController';
-import { AuthRequest } from '../../../core/models/Auth/AuthRequest';
+import { AuthRequest } from '../../../core/dto/Auth/AuthRequest';
 
 @Component({
   selector: 'app-login',

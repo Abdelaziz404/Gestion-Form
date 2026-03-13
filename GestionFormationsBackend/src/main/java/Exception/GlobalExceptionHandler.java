@@ -93,9 +93,12 @@ public class GlobalExceptionHandler {
                         )
                 );
 
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(errors);
+        System.err.println("Validation Error in Backend: " + errors);
+
+        return buildResponse(
+                HttpStatus.BAD_REQUEST,
+                "Erreur de validation: " + errors.toString()
+        );
     }
 
     // ======================
@@ -104,10 +107,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleOther(Exception ex) {
-
+        System.err.println("INTERNAL SERVER ERROR in Backend:");
+        ex.printStackTrace();
         return buildResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,
-                "Internal server error"
+                "Internal server error: " + ex.getMessage()
         );
     }
 

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "document")
+@Table(name = "documents")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,9 +15,9 @@ public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "document_id")
-    private Long dossierId;
+    private Long id;
 
-    @Column(name = "document_url")
+    @Column(name = "document_url", nullable = false)
     private String documentUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)

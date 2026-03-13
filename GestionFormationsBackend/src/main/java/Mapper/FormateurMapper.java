@@ -18,6 +18,15 @@ public final class FormateurMapper {
 
         Formateur formateur = Formateur.builder()
                 .id(personId)
+                // Base Person fields
+                .prenom(request.getPrenom())
+                .nom(request.getNom())
+                .email(request.getEmail())
+                .telephone(request.getTelephone())
+                .motDePasse(request.getPassword()) // Service will encode later or already encoded
+                .imageUrl(request.getImageUrl())
+                .role(request.getRole())
+                // Formateur specific fields
                 .specialite(request.getSpecialite())
                 .anneesExperience(request.getAnneesExperience())
                 .salaire(request.getSalaire())
@@ -60,7 +69,7 @@ public final class FormateurMapper {
             response.setDocumentsIds(
                     formateur.getDocuments()
                             .stream()
-                            .map(Document::getDossierId)
+                            .map(Document::getId)
                             .toList()
             );
         }

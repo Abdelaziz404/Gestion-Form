@@ -32,8 +32,8 @@ public class Candidature {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String motDePasse;
+    @Column(nullable = true)
+    private String motDePasse = "";
 
     // Professional info
     @Column(nullable = false)
@@ -43,7 +43,7 @@ public class Candidature {
     private String specialites;
 
     // List of file URLs (PDFs uploaded)
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "candidature_files", joinColumns = @JoinColumn(name = "candidature_id"))
     @Column(name = "file_url")
     private List<String> files = new ArrayList<>();
@@ -61,12 +61,8 @@ public class Candidature {
     private LocalDate dateModification;
 
     @PrePersist
-    protected void onCreate() {
-        this.dateCreation = LocalDate.now();
-    }
+    protected void onCreate() { this.dateCreation = LocalDate.now(); }
 
     @PreUpdate
-    protected void onUpdate() {
-        this.dateModification = LocalDate.now();
-    }
+    protected void onUpdate() { this.dateModification = LocalDate.now(); }
 }

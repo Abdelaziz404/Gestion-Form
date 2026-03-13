@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,9 +18,10 @@ import { WelcomeComponent } from './features/formateur/welcome/welcome.component
 import { DashboardAdminComponent } from './features/admin/dashboard-admin/dashboard-admin.component';
 import { CreateAdminComponent } from './features/admin/create-admin/create-admin.component';
 import { NavBarComponent } from './shared/components/vistieur_navbar/nav-bar.component';
-import { EnvoyerCandidatureComponent } from './shared/components/envoyer-candidature/envoyer-candidature.component';
+import { EnvoyerCandidatureComponent } from './features/formateur/envoyer-candidature/envoyer-candidature.component';
 import { RegisterComponent } from './shared/components/register/register.component';
 import { FormateurSidebarComponent } from './features/formateur/formateur-sidebar/formateur-sidebar.component';
+import { CandidaturesComponent } from './features/admin/candidatures/candidatures.component';
 
 @NgModule({
   declarations: [
@@ -36,13 +39,16 @@ import { FormateurSidebarComponent } from './features/formateur/formateur-sideba
     CreateAdminComponent,
     NavBarComponent,
     EnvoyerCandidatureComponent,
-    FormateurSidebarComponent
+    FormateurSidebarComponent,
+    CandidaturesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PdfViewerModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

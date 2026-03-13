@@ -1,0 +1,149 @@
+<div class="candidature-admin-container">
+  <header class="admin-header">
+    <div class="header-content">
+      <h1>Gestion des Candidatures</h1>
+      <p class="subtitle">Consultez et gérez les soumissions des formateurs</p>
+    </div>
+  </header>
+
+  <div class="content-wrapper">
+    <!-- Alertes -->
+    <div *ngIf="errorMessage" class="alert-banner error">
+      <i class="fas fa-exclamation-circle"></i>
+      <span>{{ errorMessage }}</span>
+      <button class="btn-close-alert" (click)="errorMessage = ''">&times;</button>
+    </div>
+
+    <div *ngIf="successMessage" class="alert-banner success">
+      <i class="fas fa-check-circle"></i>
+      <span>{{ successMessage }}</span>
+      <button class="btn-close-alert" (click)="successMessage = ''">&times;</button>
+    </div>
+
+    <!-- Loader -->
+    <div *ngIf="loading" class="loader-container">
+      <div class="loader"></div>
+      <p>Chargement des candidatures...</p>
+    </div>
+
+    <!-- Table des candidatures -->
+    <div *ngIf="!loading" class="table-card glass-card">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Candidat</th>
+              <th>Contact & Spécialités</th>
+              <th>Expérience</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let c of candidatures"
+              (click)="selectCandidature(c)"
+              [class.selected]="selectedCandidature?.id === c.id"
+            >
+              <td>
+                <div class="user-info">
+                  <span class="user-name">{{ c.nom }} {{ c.prenom }}</span>
+                  <span class="user-email">{{ c.email }}</span>
+                </div>
+              </td>
+              <td>
+                <div class="specialties-tag">{{ c.specialites }}</div>
+              </td>
+              <td>
+                <span class="exp-badge">{{ c.anneesExperience }} ans</span>
+              </td>
+              <td>
+                <span class="status-badge" [ngClass]="c.status.toLowerCase()">
+                  {{ c.status }}
+                </span>
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <!-- Boutons visibles seulement si EN_ATTENTE -->
+                  <button
+                    *ngIf="c.status === StatutInscription.EN_ATTENTE"
+                    class="btn-icon accept"
+                    title="Accepter"
+                    (click)="updateStatus(c, StatutInscription.ACCEPTER); $event.stopPropagation()"
+                  >
+                    <i class="fas fa-check"></i>
+                  </button>
+
+                  <button
+                    *ngIf="c.status === StatutInscription.EN_ATTENTE"
+                    class="btn-icon reject"
+                    title="Refuser"
+                    (click)="updateStatus(c, StatutInscription.REFUSER); $event.stopPropagation()"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Détails candidature -->
+    <div *ngIf="selectedCandidature" class="details-card glass-card slide-up">
+      <div class="details-header">
+        <h3>Dossier de candidature : {{ selectedCandidature.nom }} {{ selectedCandidature.prenom }}</h3>
+        <button class="btn-close" (click)="selectedCandidature = undefined">&times;</button>
+      </div>
+
+      <div class="details-grid">
+        <div class="info-item">
+          <label>Email</label>
+          <span>{{ selectedCandidature.email }}</span>
+        </div>
+
+        <div class="info-item">
+          <label>C.V. & Documents</label>
+          <div class="pdf-list">
+            <div
+              *ngIf="!selectedCandidature.files || selectedCandidature.files.length === 0"
+              class="no-files"
+            >
+              <p>Aucun document disponible pour cette candidature.</p>
+            </div>
+
+            <div *ngFor="let file of selectedCandidature.files" class="pdf-item">
+              <a [href]="file" target="_blank" class="pdf-link">
+                <i class="far" [ngClass]="isPdf(file) ? 'fa-file-pdf' : 'fa-image'"></i>
+                Ouvrir dans un nouvel onglet
+              </a>
+
+              <!-- PDF Viewer -->
+              <div *ngIf="isPdf(file)" class="viewer-wrapper">
+                <pdf-viewer
+                  [src]="file"
+                  [render-text]="true"
+                  [original-size]="false"
+                  [autoresize]="true"
+                  [show-all]="true"
+                  style="width: 100%; height: 600px; display: block"
+                ></pdf-viewer>
+              </div>
+
+              <!-- Image Viewer -->
+              <div *ngIf="isImage(file)" class="image-wrapper">
+                <img [src]="file" alt="Document image" style="max-width: 100%; border-radius: 8px" />
+              </div>
+
+              <!-- Fallback -->
+              <div *ngIf="!isPdf(file) && !isImage(file)" class="fallback-wrapper">
+                <p>Aperçu non disponible pour ce type de fichier.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

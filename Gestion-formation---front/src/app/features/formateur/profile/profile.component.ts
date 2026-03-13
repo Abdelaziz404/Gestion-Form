@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../core/models/user.model';
-import { MOCK_FORMATEUR } from '../../../infrastructure/mock/mock-data';
+
 
 @Component({
   selector: 'app-profile',
@@ -8,7 +8,6 @@ import { MOCK_FORMATEUR } from '../../../infrastructure/mock/mock-data';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: User = MOCK_FORMATEUR;
   activeTab: 'personal' | 'security' | 'notifications' = 'personal';
   isEditing = false;
 

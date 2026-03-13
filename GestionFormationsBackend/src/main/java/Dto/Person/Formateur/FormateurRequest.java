@@ -23,4 +23,5 @@ public class FormateurRequest extends PersonRequest {
     private Double salaire;
 
     private List<String> documentUrls;
+
 }

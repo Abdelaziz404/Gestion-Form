@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { MOCK_PARTICIPANTS } from '../mock/mock-data';
 import { User } from '../../core/models/user.model';
 import { Presence } from '../../core/models/presence.model';
 
@@ -13,7 +12,7 @@ export class PresenceService {
     constructor() { }
 
     getParticipantsBySeance(seanceId: number): Observable<User[]> {
-        return of(MOCK_PARTICIPANTS);
+        return of([]);
     }
 
     recordPresence(presence: Presence): void {

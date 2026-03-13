@@ -13,6 +13,15 @@ public final class ParticipantMapper {
     public static Participant toEntity(ParticipantRequest request, Long personId) {
         return Participant.builder()
                 .id(personId)
+                // Base fields
+                .prenom(request.getPrenom())
+                .nom(request.getNom())
+                .email(request.getEmail())
+                .telephone(request.getTelephone())
+                .motDePasse(request.getPassword())
+                .imageUrl(request.getImageUrl())
+                .role(request.getRole())
+                // Participant specific fields
                 .dateInscription(request.getDateInscription())
                 .build();
     }

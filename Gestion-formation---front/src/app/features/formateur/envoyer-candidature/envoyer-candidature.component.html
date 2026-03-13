@@ -1,0 +1,89 @@
+<div class="auth-page">
+  <div class="auth-layout">
+
+    <!-- Step 1: Personal Info -->
+    <div *ngIf="currentStep === 1" class="form-panel">
+      <div class="auth-card glass-card">
+        <div class="header">
+          <h1 class="logo-text">🎓 CN I</h1>
+          <p class="subtitle">Informations Personnelles</p>
+        </div>
+
+        <form (submit)="onNextStep($event)">
+          <div class="form-group">
+            <label>Nom</label>
+            <div class="input-wrapper">
+              <input type="text" placeholder="Votre nom" [(ngModel)]="nom" name="nom" required pattern="[A-Za-zÀ-ÿ\s]+">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Prénom</label>
+            <div class="input-wrapper">
+              <input type="text" placeholder="Votre prénom" [(ngModel)]="prenom" name="prenom" required pattern="[A-Za-zÀ-ÿ\s]+">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <div class="input-wrapper">
+              <input type="email" placeholder="name@cni.tn" [(ngModel)]="email" name="email" required>
+            </div>
+          </div>
+
+          <div *ngIf="currentStep === 1 && errorMessage" class="error-message">{{ errorMessage }}</div>
+
+          <button type="submit" class="btn-primary full-width">Suivant</button>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- Step 2: Professional Info + File Upload -->
+    <div *ngIf="currentStep === 2" class="form-panel">
+      <div class="auth-card glass-card">
+        <div class="header">
+          <h1 class="logo-text">🎓 CN I</h1>
+          <p class="subtitle">Détails Professionnels</p>
+        </div>
+
+        <form (submit)="onSubmit($event)">
+          <div class="form-group">
+            <label>Années d'expérience</label>
+            <div class="input-wrapper">
+              <input type="number" placeholder="Ex: 5" [(ngModel)]="anneesExperience" name="anneesExperience" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Spécialités</label>
+            <div class="input-wrapper">
+              <input type="text" placeholder="Ex: Java, Python" [(ngModel)]="specialites" name="specialites" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Ajouter des fichiers (PDF)</label>
+            <div class="input-wrapper">
+              <input type="file" (change)="onFileSelected($event)" multiple accept=".pdf">
+            </div>
+            <div *ngIf="selectedFiles.length > 0" class="file-list">
+              <div *ngFor="let file of selectedFiles; let i = index" class="file-item-mini">
+                <span>{{ file.name }}</span>
+                <button type="button" class="btn-remove" (click)="removeFile(i)">&times;</button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" (click)="prevStep()">Précédent</button>
+            <button type="submit" class="btn-primary">Envoyer Candidature</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
